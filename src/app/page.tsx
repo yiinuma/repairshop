@@ -11,7 +11,7 @@ export default function Home() {
             <address>
               555 Gateway Lane
               <br />
-              Kansas City, KS 55555
+              Kansas City, KS 555777
             </address>
             <p>Open Dairy:9am to 5pm</p>
           </h1>
