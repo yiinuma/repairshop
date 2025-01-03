@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useForm } from "react-hook-form";
 
 import { InputWithLabel } from "@/components/input/InputWithLabel";
@@ -9,18 +10,25 @@ import { TextAreaWithLabel } from "@/components/input/TextAreaWithLabel";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
+import { StatesArray } from "@/constants/StatesArray";
 import {
   insertCustomerSchema,
   type insertCustomerSchemaType,
   type selectCustomerSchemaType,
 } from "@/zod-schemas/customer";
-import { StatesArray } from "@/constants/StatesArray";
 
 type Props = {
   customer?: selectCustomerSchemaType;
 };
 
 export default function CustomerForm({ customer }: Props) {
+  const { getPermission, getPermissions, isLoading } = useKindeBrowserClient();
+  const isManager = !isLoading && getPermission("manager")?.isGranted;
+  // const permObj = getPermissions();
+  // const isAuthorized =
+  //   !isLoading &&
+  //   permObj.permissions.some((perm) => perm === "manager" || perm === "admin");
+
   const defaultValues: insertCustomerSchemaType = {
     id: customer?.id ?? 0,
     firstName: customer?.firstName ?? "",

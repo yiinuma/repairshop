@@ -3,6 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { CheckboxWithLabel } from "@/components/input/CheckboxWithLabel";
+import { InputWithLabel } from "@/components/input/InputWithLabel";
+import { SelectWithLabel } from "@/components/input/SelectWithLabel";
+import { TextAreaWithLabel } from "@/components/input/TextAreaWithLabel";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
@@ -50,8 +54,7 @@ export default function TicketForm({ customer, ticket }: Props) {
           onSubmit={form.handleSubmit(submitForm)}
           className="flex flex-col gap-4 md:flex-row md:gap-8"
         >
-          <p>{JSON.stringify(form.getValues())}</p>
-          {/* <div className="flex w-full max-w-xs flex-col gap-4">
+          <div className="flex w-full max-w-xs flex-col gap-4">
             <InputWithLabel<insertTicketSchemaType>
               fieldTitle="Title"
               nameInSchema="title"
@@ -112,7 +115,7 @@ export default function TicketForm({ customer, ticket }: Props) {
                 Reset
               </Button>
             </div>
-          </div> */}
+          </div>
         </form>
       </Form>
     </div>
