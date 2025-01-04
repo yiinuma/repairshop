@@ -7,6 +7,27 @@ import { BackButton } from "@/components/BackButton";
 import { getCustomer } from "@/lib/queries/getCustomer";
 import { getTicket } from "@/lib/queries/ticket";
 
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}) {
+  const { customerId, ticketId } = await searchParams;
+
+  if (!customerId && !ticketId)
+    return { title: "Missing Ticket ID or Customer ID" };
+
+  if (customerId)
+    return {
+      title: `New Ticket for Customer #${customerId}`,
+    };
+
+  if (ticketId)
+    return {
+      title: `Edit Ticket #${ticketId}`,
+    };
+}
+
 export default async function TicketFormPage({
   searchParams,
 }: {
@@ -93,7 +114,8 @@ export default async function TicketFormPage({
 
         return <TicketForm customer={customer} ticket={ticket} techs={techs} />;
       } else {
-        const isEditable = user.email === ticket.tech;
+        const isEditable =
+          user.email?.toLowerCase() === ticket.tech?.toLowerCase();
         return (
           <TicketForm
             customer={customer}
